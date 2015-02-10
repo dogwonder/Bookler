@@ -2,25 +2,22 @@
 %html(lang="en")
   %head
     %title Bookler
-    %link{:rel => 'stylesheet', :href => 'stylesheets/bootstrap.css', :type => "text/css"}
+    %link{:rel => 'stylesheet', :href => 'stylesheets/bootstrap.min.css', :type => "text/css"}
+    %link{:rel => 'stylesheet', :href => 'stylesheets/bookler.css', :type => "text/css"}
 
   %body
 
     .container
-      .content
-        .page-header
-          %h1
-            Bookler
-            %small &nbsp;read your feed
-        .row
-          .span8
-            %h2 Make your book
-            %form{ :action => "/", :method => "post"}
-              .clearfix
-              %label Feed URL
-              .input
-                %input{ :name => "feedurl", :class => "", :type => "text", :id => "feedurl"}
-              .clearfix
-              %input{ :type => "submit", :class => "btn primary large", :value => "Create a book"}
+      .header
+        %h1
+          Bookler
+          %small &nbsp;read your feed
+      .jumbotron
+        %h1 Make your book
+        %form{ :action => "/", :method => "post"}
+          .form-group
+            %label Feed URL
+            %input{ :name => "feedurl", :class => "form-control", :type => "text", :id => "feedurl"}
+            %input{ :type => "submit", :class => "btn btn-lg btn-success", :value => "Create a book"}
 
       %footer

@@ -6,6 +6,6 @@ Start via ruby -rubygems booker.rb
 
 Once the feed has been run, save the source html to index.html then run
 
-prince -s public/stylesheets/kindle.css index.html -o index.pdf
+prince -s print.css index.html -o index.pdf
 
 Right now the CSS is configured for Kindle
