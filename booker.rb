@@ -2,7 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'feed-normalizer'
-require 'openurl'
+require 'open-uri'
 require './readability.rb'
 
 post '/' do
