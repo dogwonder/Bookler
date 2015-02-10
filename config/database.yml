@@ -1,5 +1,0 @@
-development:
-  adapter: mysql
-  database: bookler
-  username: root
-  password: root
