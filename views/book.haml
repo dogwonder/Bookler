@@ -5,16 +5,18 @@
     %title Bookler
     %link{ :href => "stylesheets/print.css", :rel => "stylesheet", :type => "text/css"}
   %body
+    .frontcover
+      %h1 A bookler book
+      %h2 Feed your read
     %nav#toc
       %ul
         -for chapter in @chapters
           -if(chapter['title'])
             -id= Digest::MD5.hexdigest(chapter['title'])
-            %li.toc-chapter
+            %li
               -anchor='#'+id
-              %h2
-                %a(href=anchor)
-                  = chapter['title']
+              %a(href=anchor)
+                = chapter['title']
     .container
       -for chapter in @chapters
         -if(chapter['title'])

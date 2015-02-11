@@ -10,19 +10,25 @@ html {
 
 body {
   margin: 0 3.5%;
-  font: 12pt/1.26 Palatino, Baskerville, "Hoefler Text", Minion Pro, Garamond, Cochin, Times New Roman, serif;
-
+  font: 10pt/1.26 Palatino, Baskerville, "Hoefler Text", Minion Pro, Garamond, Cochin, Times New Roman, serif;
 }
 
 @page {
-  margin: 20mm 10mm 20mm 10mm;
-  size: 8.3in  11.7in !important;
+  padding:0;
+  margin:0.375in;
+  size: 6in 9in;
+  @footnotes {
+    border-top: thin solid black;
+    padding-top: 0.3em;
+    margin-top: 0.6em;
+    margin-left: 7%;
+  }
 }
 
 /* define default page and names pages: cover, blank, frontmatter */
 @page :left {
   @top-left {
-    font: 10pt Palatino, Baskerville, "Hoefler Text", Minion Pro, Garamond, Cochin, Times New Roman, serif;
+    font: 8pt Palatino, Baskerville, "Hoefler Text", Minion Pro, Garamond, Cochin, Times New Roman, serif;
     content: string(header, first);
     font-style:italic;
     vertical-align: bottom;
@@ -30,7 +36,7 @@ body {
   }
 
   @bottom-left {
-    font: 10pt Palatino, Baskerville, "Hoefler Text", Minion Pro, Garamond, Cochin, Times New Roman, serif;
+    font: 8pt Palatino, Baskerville, "Hoefler Text", Minion Pro, Garamond, Cochin, Times New Roman, serif;
     content: counter(page);
     padding-top: 1.5em;
     vertical-align: top;
@@ -39,19 +45,19 @@ body {
 
 @page :right {
   @top-right {
-    font: 10pt Palatino, Baskerville, "Hoefler Text", Minion Pro, Garamond, Cochin, Times New Roman, serif;
+    font: 8pt Palatino, Baskerville, "Hoefler Text", Minion Pro, Garamond, Cochin, Times New Roman, serif;
   font-style:italic;
     content: 'Bookler - Read your Feed';
     vertical-align: bottom;
-    padding-bottom: 1.5em;
+    padding-top: 1.5em;
   }
 
   @bottom-right {
-    font: 10pt Palatino, Baskerville, "Hoefler Text", Minion Pro, Garamond, Cochin, Times New Roman, serif;
+    font: 8pt Palatino, Baskerville, "Hoefler Text", Minion Pro, Garamond, Cochin, Times New Roman, serif;
     content: counter(page);
     text-align: right;
     vertical-align: top;
-    padding-top: 1.5em;
+    padding-bottom: 1.5em;
   }
 }
 
@@ -81,14 +87,39 @@ h1, h2, h3, h4, h5, h6 {
   clear: both;
 }
 
-h1 {
-  padding: 0;
-  margin: 0 0 2em 0;
-  font-size: 2em;
-  line-height:1.1em;
+h1, h2 {
+  font-size: 22pt;
+  margin:2em 0;
+  font-weight: bold;
+  text-align:center;
 }
 
-p {text-indent: 1em; margin: 0.4em 0; clear: both; font-size: 100%; text-align: justify; hyphens: auto; }
+span.caps {
+  font-variant: small-caps;
+}
+
+sup {font-size:1em;}
+
+blockquote, q {
+  margin:1em;
+  font-size:10pt;
+  line-height:15pt;
+  font-style:italic;
+}
+
+blockquote:before, q:before {
+  content: "\201C";
+  font-size:14pt;
+}
+
+blockquote:after, q:after {
+  content: "\201D";
+  font-size:14pt;
+}
+
+
+p + p { text-indent: 1.3em }
+p.sidenote + p, p.caption, p.art { text-indent: 0 }
 
 a { text-decoration: none; color: black }
 
@@ -100,7 +131,6 @@ img {
   margin:0.5in auto;
 }
 
-
 /* TOC */
 #toc {
   margin:0 auto;
@@ -108,32 +138,140 @@ img {
   list-style-type: none;
   font-size: 100%;
   page-break-before: always;
-  width: 80%;
   page: blank;
+  width:80%;
+}
+
+#toc ul {
+  counter-reset: list-item;
+  margin:0;
+  padding:0;
 }
 
 #toc li {
   margin: 13px 5px;
   clear: right;
-  font-size: 0.8em;
+  font: 12pt/1.26;
   font-weight: normal;
   page-break-after: avoid;
   list-style-type: none;
+  counter-increment: list-item;
 }
 
 #toc a {margin:0;}
 
-/*#toc a::before {
-  content: "Chapter " counter(toc-chapter, decimal);
+#toc a::before {
+  content: counters(list-item, ".", decimal);
   counter-increment: toc-chapter;
   page-break-after: avoid;
   font-style: italic;
-  font-weight: lighter;
+  font-weight: bold;
   margin-right: 15px;
   color: #000;
-}*/
+}
 
 #toc a::after { content: leader(".") target-counter(attr(href), page); }
 
 /* Chapters */
-.chapter {page-break-before: left; page: blank;}
+.chapter {page-break-before: always;}
+
+.chapter { counter-increment: chapter-num; }
+
+.chapter::before {
+    content: counter(chapter-num, decimal);
+    margin:0 0 4em;
+    font-size:4em;
+}
+
+/*hyphenation and justification rules*/
+.titlepage {
+  padding:2.5in 0 0 0;
+}
+
+.titlepage p,
+.introduction p,
+.chapter p {
+  hyphens: auto;
+  prince-hyphenate-after: 4;
+  text-align:justify;
+}
+
+.chapter ul {
+  margin:1em 2em;
+}
+
+.chapter li {
+  font-size:1em;
+  list-style-type: dics;
+}
+
+.chapter h1,
+.chapter h2,
+.chapter h3,
+.chapter h4,
+.chapter h5,
+.chapter h6 {
+  font-size:1em;
+  font-size:bold;
+  margin:1em 0;
+}
+
+/*
+   A book consists of different types of sections. We propose to use
+   DIV elements with these class names:
+
+    frontcover
+    halftitlepage: contains the title of the book
+    titlepage: contains the title of the book, name of author(s) and publisher
+    imprint: left page with copyright, publisher, library printing information
+    dedication: right page with short dedication
+    foreword: written by someone other than the author(s)
+    toc: table of contents
+    preface: preface, including acknowledgements
+    chapter: each chapter is given its own DIV element
+    references: contains list of references
+    appendix: each appendix is given its own
+    bibliography
+    glossary
+    index
+    colophon: describes how the book was produced
+    backcover
+
+   A book will use several of the types listed above, but few books
+   will use all of them.
+*/
+
+/* which section uses which named page */
+.frontcover, .halftitlepage, .titlepage,
+.acknowledgements, .introduction, .imprint,
+.contributors, .dedication, .images {
+  page: blank;
+}
+.foreword, .toc, .preface, .index { page: frontmatter; }
+
+/* page breaks */
+.frontcover, .halftitlepage, .titlepage, .index, .contributors,
+.acknowledgements, .introduction, .images, .page-break  { page-break-before: always; }
+
+/*adds another page*/
+/*div.frontcover, div.halftitlepage, div.titlepage, div.acknowledgements { page-break-before: right } */
+.imprint { page-break-before: always }
+
+.frontcover {
+  margin:0;
+}
+
+.frontcover::before {
+  /*content:"";
+  display: block;
+  position: absolute;
+  width: 6in;
+  max-width: 6in;
+  height: 9in;
+  left: 0;
+  top: -0.51in;
+  z-index: -1;
+  background: repeating-radial-gradient(circle, white 5%, #4f4f4f 10%),
+    radial-gradient(circle, #4f4f4f 5%, #4f4f4f 15%) 0.2in 0.2in;
+  background-size:0.4in 0.4in;*/
+}

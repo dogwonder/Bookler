@@ -3,6 +3,8 @@ require 'sinatra'
 require 'haml'
 require 'feed-normalizer'
 require 'open-uri'
+# Look at integrating princely https://github.com/mbleigh/princely
+require 'princely'
 require './readability.rb'
 
 post '/' do
@@ -14,7 +16,7 @@ post '/' do
       begin
         if not feed.entries.nil?
           source = open(post.urls.first).read
-          rtext = Readability::Document.new(source, :tags => %w[div p img a], :attributes => %w[src href], :remove_empty_nodes => false).content;
+          rtext = Readability::Document.new(source, :tags => %w[div p img a ul li h1 h2 h3 h4 h5 h6], :attributes => %w[src href], :remove_empty_nodes => false).content;
           @chapters.push("title"=>post.title,"content"=>rtext)
         end
       rescue
